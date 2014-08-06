@@ -1,0 +1,20 @@
+//use getUserFromContainer action
+var user = System.getModule("com.vmware.library.microsoft.activeDirectory").getUserFromContainer(userOu,userName);
+//throw error if not found
+	if (user == null){
+  		throw ("No matching username found for " + userName + " Use first Initial lastname or firstname.lastname");
+	}
+// Get group members
+var userMember = userGroup.userMembers
+//create user array for addElements method
+userArray = [user];
+
+//use addElements method to add user to AD group
+for(var i = 0; i < userMember.length;i++ ){
+	if (userMember[i].distinguishedName === userArray[0].distinguishedName){
+		throw "User already added:  " + userMember[i].distinguishedName;
+	}else if ((userMember[i].distinguishedName != userArray[0].distinguishedName) && (i + 1 == userMember.length)){
+		userGroup.addElements(userArray);
+		}
+	}
+
